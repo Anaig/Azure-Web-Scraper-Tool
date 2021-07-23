@@ -3,7 +3,7 @@ This project will guide you building a tool that will analyze data extracted fro
 
 For this example, we want to create an AI-infused search index of training courses offered by [IAEA]([Coordinated Research Projects | IAEA](https://www.iaea.org/projects/coordinated-research-projects)). In addition we'll create a Power BI report to get more insights about the extracted content using the Azure Search knowledge store.
 
-![image-20210722184824217](.\img\archi)
+![image-20210722184824217](.\img\archi.png)
 
 
 
@@ -22,7 +22,7 @@ To get the most relevant web pages we want to scrap for a given key words, we ar
 
 - In the Azure portal, deploy a [Bing Custom Search](https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search/create-bing-search-service-resource) resource. For the lab purpose, you can chose the Standard S1 pricing tier.
 
-![image-20210723090711304](.\img\custom-search)
+![image-20210723090711304](.\img\custom-search.png)
 
 
 
@@ -32,7 +32,7 @@ To get the most relevant web pages we want to scrap for a given key words, we ar
 - Select the search instance you just created.
 - In the `Search Experience` tab, add the list of websites you want to explore. Select **Include Subpages** as we want to get a list of children URLs  from this page - https://www.iaea.org/projects/crp/*[id-of-a-crp]*. 
 
-![image-20210723092322685](.\img\custom-search-portal)
+![image-20210723092322685](.\img\custom-search-portal.png)
 
 - On the right part of the portal, you can make some tests and search for key words.
 - You can then publish the API. 
@@ -102,7 +102,7 @@ Copy the content of [\__init__.py](./Python function/GetWebData/__init__.py) wit
 
 To run the function locally, press `F5` and observe the result in VS Code's terminal. The function local endpoint will be displayed, typically `http://localhost:7071/api/[NAME_OF_THE_FUNCTION]`. You can now test it by using Postman or the tool of your choice. We don't need any authentication header as we chose the anonymous configuration.
 
-![image-20210723123807499](.\img\function_local_test) 
+![image-20210723123807499](.\img\function_local_test.png) 
 
 Open the Azure Storage Explorer, connect to the Azure storage that was configured in your function's local settings and check if a new json file with the website content has been created.
 
