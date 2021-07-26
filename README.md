@@ -4,7 +4,7 @@ This project will guide you building a tool that will analyze data extracted fro
 
 For this example, we want to create an AI-infused search index of training courses offered by [IAEA](https://www.iaea.org/projects/coordinated-research-projects). In addition we'll create a Power BI report to get more insights about the extracted content using the Azure Search knowledge store.
 
-![achitecture](./img/archi-projet.png)
+![achitecture](./img/architecture.PNG)
 
 ## Requirements
 
@@ -29,7 +29,7 @@ To get the most relevant web pages we want to scrap for a given key words, we ar
 - Select the search instance you just created.
 - In the `Search Experience` tab, add the list of websites you want to explore. Select **Include Subpages** as we want to get a list of children URLs  from this page - https://www.iaea.org/projects/crp/[id-of-a-crp].
 
-![custom search portal](.\img\custom-search-portal.png)
+![custom search portal](./img/custom-search-portal.png)
 
 - On the right part of the portal, you can make some tests and search for key words.
 - You can then publish the API.
@@ -93,13 +93,13 @@ beautifulsoup4
 
 Finally we will add the code logic within the function. By default, the runtime expects the method to be implemented as a global method called `main()` in the `__init__.py` file.
 
-Copy the content of [\__init__.py](./Python function/GetWebData/__init__.py) within your file. Add the environment variables `SubscriptionKey`  and `ConfigId` in your `local.settings.json` file and in the Azure appsettings, as we have done previously for the connection string. You can see that these variables are consumed like any Python environment variables line 45 and 46 of the script.
+Copy the content of [\__init__.py](./python_function/GetWebData/__init__.py) within your file. Add the environment variables `SubscriptionKey`  and `ConfigId` in your `local.settings.json` file and in the Azure appsettings, as we have done previously for the connection string. You can see that these variables are consumed like any Python environment variables line 45 and 46 of the script.
 
 ### Test your app
 
 To run the function locally, press `F5` and observe the result in VS Code's terminal. The function local endpoint will be displayed, typically `http://localhost:7071/api/[NAME_OF_THE_FUNCTION]`. You can now test it by using Postman or the tool of your choice. We don't need any authentication header as we chose the anonymous configuration.
 
-![vs code console](.\img\function_local_test.png)
+![vs code console](./img/function_local_test.png)
 
 Open the Azure Storage Explorer, connect to the Azure storage that was configured in your function's local settings and check if a new json file with the website content has been created.
 
@@ -110,3 +110,46 @@ In Visual Studio Code, go back to the Azure tab (`Ctrl + Shift + A`) and in the 
 Open the command pallet (`Ctrl + Shift + P`) and enter `Azure Functions: Deploy to function app`. Select your subscription and the function app you want to deploy to.
 
 If you go back to the Azure portal, you can now see that the function has been deployed. You can get the function URL from here, that will have the format `https://[FUNCTION_APP_INSTANCE].azurewebsites.net/api/[FUNCTION_NAME]`
+
+## Create an indexer with Azure Search
+
+In the Azure portal, deploy an Azure Cognitive Search resource. You can choose the free or basic tier. Go to the deployed instance and go through the following steps.
+
+### Connect to your data
+
+Select `Import Data`.
+
+- **Data source**: Azure Blob Storage
+- **Data to extract**: Content and Metadata
+- **Parsing mode**: Default
+- **Connection string**:  Choose an existing connection and select the storage we previously used
+
+![search data source](./img/connect-data.png)
+
+### Add Cognitive Skills
+
+We are now going to add AI enrichment to our search index. In this lab, we are going to use some buit-in Natural Language Processing skills from Microsoft. You could also add your own [custom skills](https://docs.microsoft.com/en-us/azure/search/cognitive-search-concept-intro) to your Azure Search resource.
+
+![AI enrichment pipeline](./img/cogsearch-architecture.PNG)
+
+A free Cognitive Services resource should be available. Select it or create a new one.
+
+Select the enrichments you want to add to your Search indexer.
+
+![data enrichment](./img/data-enrichment.PNG)
+
+Save the enrichments to a knowledge store. It will save the enrichements' result within a table storage and enable us to reuse the content in other applications, such as in Power BI reports.
+
+Copy the Power BI parameters and download the Power BI template for later.
+
+### Create an index
+
+Customize the index according to your requirements. By default, content is searchable and retrievable. The metadata_storage_path is used as the key field, which is the unique identifier for the documents within the index.
+
+![index](./img/index.PNG)
+
+### Create an indexer
+
+Finally, create an indexer. You can schedule it once for now.
+
+For this lab, we have been using the Azure portal interface to build our Cognitive Search indexer. It is a good way to get familiar with the service and its concepts of data source, enrichment, knowledge store, index and indexer. However this approach makes update to the index and indexers uneasy. For this reason, a programmatic approach is recommended for the projects. You can find a template of the API calls necessary for the preceding steps in this [repo](./azure_search_api). The collection can be imported in Postman, where the `Cognitive Search Env` environment needs to be configured.
