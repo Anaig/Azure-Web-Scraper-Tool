@@ -8,12 +8,13 @@ For this example, we want to create an AI-infused search index of training cours
 
 ## Requirements
 
-- An Azure subscription
-- Visual Studio Code
-
-- Azure Functions for VS Code
-- Python
-- Azure Storage explorer
+- [An Azure subscription](https://azure.microsoft.com/en-gb/free/search/?OCID=AID2200274_SEM_c9311c296c7b119478c87d287eb07988:G:s&ef_id=c9311c296c7b119478c87d287eb07988:G:s&msclkid=c9311c296c7b119478c87d287eb07988)
+- [Visual Studio Code](https://code.visualstudio.com/Download)
+- [Azure Functions for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+- [Python 3.9](https://www.python.org/downloads/release/python-390/)
+- [Azure Storage explorer](https://azure.microsoft.com/en-us/features/storage-explorer/#overview)
+- [Power BI Desktop](https://powerbi.microsoft.com/en-us/downloads/)
+- [Postman application](https://www.postman.com/downloads/)
 
 ## Create a custom web search engine
 
@@ -124,13 +125,13 @@ Select `Import Data`.
 - **Parsing mode**: Default
 - **Connection string**:  Choose an existing connection and select the storage we previously used
 
-![search data source](./img/connect-data.png)
+![search data source](./img/connect-data.PNG)
 
 ### Add Cognitive Skills
 
 We are now going to add AI enrichment to our search index. In this lab, we are going to use some buit-in Natural Language Processing skills from Microsoft. You could also add your own [custom skills](https://docs.microsoft.com/en-us/azure/search/cognitive-search-concept-intro) to your Azure Search resource.
 
-![AI enrichment pipeline](./img/cogsearch-architecture.PNG)
+![AI enrichment pipeline](./img/cogsearch-architecture.png)
 
 A free Cognitive Services resource should be available. Select it or create a new one.
 
