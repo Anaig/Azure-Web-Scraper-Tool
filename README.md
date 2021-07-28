@@ -6,6 +6,26 @@ For this example, we want to create an AI-infused search index of training cours
 
 ![achitecture](./img/architecture.PNG)
 
+## Table of Contents
+
+- [Azure-Web-Scraper-Tool](#azure-web-scraper-tool)
+  - [Requirements](#requirements)
+  - [Create a custom web search engine](#create-a-custom-web-search-engine)
+  - [Build a Web Scraper using Azure Functions](#build-a-web-scraper-using-azure-functions)
+    - [Create an output storage for the function](#create-an-output-storage-for-the-function)
+    - [Configuration of the output](#configuration-of-the-output)
+    - [Add libraries](#add-libraries)
+    - [Build the function](#build-the-function)
+    - [Test your app](#test-your-app)
+    - [Publish the function to Azure](#publish-the-function-to-azure)
+  - [Create an indexer with Azure Search](#create-an-indexer-with-azure-search)
+    - [Connect to your data](#connect-to-your-data)
+    - [Add Cognitive Skills](#add-cognitive-skills)
+    - [Create an index](#create-an-index)
+    - [Create an indexer](#create-an-indexer)
+    - [Test the search service](#test-the-search-service)
+  - [Visualize in Power BI](#visualize-in-power-bi)
+
 ## Requirements
 
 - [An Azure subscription](https://azure.microsoft.com/en-gb/free/search/?OCID=AID2200274_SEM_c9311c296c7b119478c87d287eb07988:G:s&ef_id=c9311c296c7b119478c87d287eb07988:G:s&msclkid=c9311c296c7b119478c87d287eb07988)
@@ -153,4 +173,18 @@ Customize the index according to your requirements. By default, content is searc
 
 Finally, create an indexer. You can schedule it once for now.
 
-For this lab, we have been using the Azure portal interface to build our Cognitive Search indexer. It is a good way to get familiar with the service and its concepts of data source, enrichment, knowledge store, index and indexer. However this approach makes update to the index and indexers uneasy. For this reason, a programmatic approach is recommended for the projects. You can find a template of the API calls necessary for the preceding steps in this [repo](./azure_search_api). The collection can be imported in Postman, where the `Cognitive Search Env` environment needs to be configured.
+> For this lab, we have been using the Azure portal interface to build our Cognitive Search indexer. It is a good way to get familiar with the service and its concepts of data source, enrichment, knowledge store, index and indexer. However this approach makes update to the index and indexers uneasy. For this reason, a programmatic approach is recommended for the projects. You can find a template of the API calls necessary for the preceding steps in this [repo](./azure_search_api). The collection can be imported in Postman, where the `Cognitive Search Env` environment needs to be configured.
+
+### Test the search service
+
+In the portal, in the indexer tab from the Search instance, check if the indexer has the correct number of succeeded documents and does not have any errors or warnings.
+
+Then, select the index tab. You can test the search service directly from the portal, or you can copy the request URL, get the admin key and execute the requests from Postman. 
+
+## Visualize in Power BI
+
+In Power BI Desktop, open the [Power BI Cognitive Search template](./power_bi/). At the opening, fill the form that shows up with the values you get when creating the knowledge store.
+
+![pbi](./img/power_bi_template.PNG)
+
+Update the visuals and data according to your needs.
